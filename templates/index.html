@@ -1,0 +1,24 @@
+{% extends "index2.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+
+    <div class="container-fluid" style="width: auto;">
+        <div class="title-bar">
+        <div class="title-bar-text">Welcome to HOPSULI</div>
+        </div>
+        <div class="container">
+            <p>Please select:</p>
+            <form action = "/">
+                <button>Log in</button>
+                <button>Register</button>
+            </form>
+            <a href="/newhops">Create new booking calendar.</a>
+          </div>
+    </div>
+    
+
+{% endblock %}

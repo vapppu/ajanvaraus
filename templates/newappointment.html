@@ -1,0 +1,63 @@
+{% extends "newhops.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block new_appt %}
+
+Tähän tavaraa
+
+<!--<div class="window container-fluid" style="width: auto;">
+    <div class="title-bar">
+    <div class="title-bar-text">New appointment</div>
+    <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Maximize"></button>
+        <button aria-label="Close"></button>
+    </div>
+    </div>
+    <div class="window-body">-->
+        <form action="/new_appt" method="post">
+                <h2>Add appointments</h2>
+                    <div class="field-row">
+                        <select name="year">
+                            <option default>2022</option>
+                            {% for year in year_range %}
+                            <option>{{ year }}</option>
+                            {% endfor %}
+
+                        </select>
+                        <select name="month">
+                            <option default>1</option>
+                            {% for month in month_range %}
+                            <option>{{ month }}</option>
+                            {% endfor %}
+                        </select>
+
+                        <select name="day">
+                            <option default>1</option>
+                            {% for day in day_range %}
+                            <option>{{ day }}</option>
+                            {% endfor %}
+                        </select>
+
+                        <input name=hour id="text24" type="number" value="1" max="23"/>
+                        <input name=min id="text24" type="number" value="1" max="59"/>
+
+                        <input type="submit" name="Submit" value="Submit">
+                        {{ message }}
+
+                    </div>
+                    <div class="field-row">
+
+                    </div>
+        </form>
+
+    <!--</div>-->
+    <div>{% for appointment in appointments %}
+      {{ appointment.string }}<input type="submit" name="Delete" value="Delete"><br>
+    {% endfor %}</div>
+<!--</div>-->
+
+{% endblock %}
