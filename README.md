@@ -2,7 +2,7 @@
 
 ## Why?
 
-AJANVARAUS booking system is being created specifically for a tool of study coordinators in the Sibelius Academy. I wanted to create a simple "no-nonsense" tool that works for creating booking calendars for study guidance sessions. These tools do exist already online, but none of them so far have exactly the features I would like them to have.
+AJANVARAUS booking system is being created specifically for a tool of study coordinators. I wanted to create a simple "no-nonsense" tool that works for creating booking calendars for study guidance sessions. These tools do exist already online, but none of them so far have exactly the features I would like them to have.
 
 ## Technologies
 
