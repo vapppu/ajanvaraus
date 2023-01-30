@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+<script>
+    function toggle(source) {
+    
+        var checkboxes = document.querySelectorAll('input[class="check"]');
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i] != source) {
+                checkboxes[i].checked = source.checked;
+            };
+        }
+    }
+</script>
+
+<h1>Edit appointment</h1>
+
+<div><a href="/{{ calendar_id }}/appointments">Back to calendar</a></div>
+
+<form method = "post" action="/{{ calendar_id }}/{{ appointment['id'] }}/edit">
+    <table>
+        
+        <tr>
+            <th>Edit starting time</th>
+            <tH>Edit ending time</tH>
+        </tr>
+        <tr>
+            <td><input type="datetime-local" name="starting_time" value="{{ appointment['starting_time'] }}"</td>
+            <td><input type="datetime-local" name="ending_time" value="{{ appointment['ending_time'] }}"</td>
+        </tr>
+    </table>
+<input type="Submit" value="Save changes">
+</form>
+
+{% endblock %}

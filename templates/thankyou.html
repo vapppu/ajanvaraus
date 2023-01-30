@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <h1>Thank you, {{ name }}!</h1>
+
+    <p>You have booked the following appointment with {{ user_data["firstname"] }} {{ user_data["lastname"] }}:</p>
+    <p>{{ booked_appointment }}</p>
+    <p>{{ calendar_data["name"] }}<br>
+    {{ calendar_data["additional_info"] }}</p>
+    <p>You can contact {{ user_data["firstname"] }} {{ user_data["lastname"] }} at <a href="mailto:{{ user_data['email'] }}">{{ user_data["email"] }}</a>.</p>
+
+
+{% endblock %}

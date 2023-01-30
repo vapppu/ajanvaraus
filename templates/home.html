@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Home
+    My homepage
 {% endblock %}
 
 {% block main %}
-    <h1>Welcome.</h1> 
-    <p>Log in or register to make your own booking calendar.</p>
+
+    <h1>Welcome back, {{ user_data["firstname"] }} {{ user_data["lastname"] }}!</h1>
     <h2>Participate</h2>
     <p>Were you invited to book a meeting with someone? Please enter calendar ID here:</p>
     <form method="post" action="/">
@@ -16,4 +16,12 @@
     <div class = "flash">
         {% for message in get_flashed_messages() %} <p>{{ message }}</p>{% endfor %} 
     </div>
+
+    {% if calendars|length > 0 %}
+        <h2>My calendars</h2>
+        {% for calendar in calendars %}
+            <a href="/{{ calendar['id'] }}/appointments">{{ calendar["name"] }}</a><br>
+        {% endfor %}
+    {% endif %}   
+
 {% endblock %}

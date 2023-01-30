@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add appointment
+{% endblock %}
+
+{% block main %}
+<script>
+    window.addEventListener('DOMContentLoaded', ()=>{
+
+        const default_duration = document.getElementById('default_duration')
+        const start_time = document.getElementById('start_time')
+        let end_time = document.getElementById('end_time')
+
+        start_time.addEventListener('blur', () =>
+            {
+                if (default_duration)
+                {
+                    end_time.value = start_time.value
+                    end_time.stepUp(default_duration.value)
+                }
+            });
+    });
+
+    function toggle(source) {
+    
+        var checkboxes = document.querySelectorAll('input[class="check"]');
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i] != source) {
+                checkboxes[i].checked = source.checked;
+            };
+        }
+    };
+</script>
+
+
+    <h1>{{ calendar_data["name"] }}</h1>
+    <div>
+        <h2>Calendar info</h2>
+        <p>Title: {{ calendar_data["name"] }}<br>
+        ID: {{calendar_data["id"]}}<br>
+        Creator: {{ user["firstname"] }} {{ user["lastname"] }}<br>
+        E-mail: <a href="mailto:{{ user['email'] }}">{{ user["email"] }}</a><br>
+        Additional info for participants: {{ calendar_data["additional_info"]}}</p>
+        <p>ID for sharing calendar: {{ calendar_data["id"] }}<br>
+        <a href="/attend/{{ calendar_id }}" target="_blank">Link to booking view</a></p>
+        <div><a href="/{{ calendar_id }}/appointments/edit_calendar">Edit calendar title and info</a></div>
+        <div><a href="/{{ calendar_id }}/appointments/delete_calendar">Delete calendar</a></div>
+
+    </div>
+    <div>
+        <h2>Add appointments</h2>
+        <form method = "post" action="/{{ calendar_id }}/appointments">
+            <label for="default_duration">Default duration of appointment in minutes (optional):</label>
+            <input type="number" name="default_duration" class="calculate-end" id="default_duration" placeholder="minutes" value="{{ session['default_duration'] }}" autofocus><br>
+            <label for="start_time">Start time:</label>
+            <input type="datetime-local" name="start_time" class="calculate-end" id="start_time" value="{{ session['default_start'] }}" required><br>
+            <label for="end_time">End time:</label>
+            <input type="datetime-local" name="end_time" id="end_time" placeholder="" required><br>
+            <input type="Submit" value="Add appointment">
+        </form>
+        <div class = "flash">
+            {% for message in get_flashed_messages() %} <p>{{ message }}</p>{% endfor %} 
+        </div>
+        {% if appointments_dict|length > 0 %}
+            <h2>Appointments</h2>
+            <div>Please remember to inform participants if you change or delete appointments!</div>
+            <div>
+                <table>            
+                <tr>
+                    <th>Appointment</th>
+                    <th>Participant</th>
+                    <th>E-mail</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                {% for row in appointments_dict %}
+                    <tr>
+                        <td>{{ row["string"] }}</td>
+                        {% if (row["participant_name"] != None) %}
+                        <td>{{ row["participant_name"] }}</td>
+                        <td><a href="mailto:{{ row['participant_email'] }}">{{ row['participant_email'] }}</a></td>
+                        {% else %}
+                        <td></td>
+                        <td></td>
+                        {% endif %}
+                        <td><a href="/{{ calendar_id }}/{{ row['id'] }}/edit">Edit</a></td>
+                        <td><a href="/{{calendar_id }}/{{ row['id'] }}/delete">Delete</a></td>
+
+                    </tr>
+                {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

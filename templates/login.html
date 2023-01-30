@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block main %}
+
+    <h1>Log in</h1>
+
+    <form action="/login" method="post">
+        <label for="username">Username:</label>
+        <input type="text" name="username" placeholder="username" required><br>
+        <label for="firstname">Password:</label>
+        <input type="password" name="password" placeholder="password" required>
+        <div class = "flash">{% for message in get_flashed_messages() %}
+        <p>{{ message }}</p>
+        {% endfor %} </div>
+        <input type="Submit" value="Log in"><br>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Edit calendar
+{% endblock %}
+
+{% block main %}
+
+<h1>Edit calendar {{ calendar_data['name'] }}</h1>
+
+
+<form method = "post" action="/{{ calendar_data['id'] }}/appointments/edit_calendar">
+    <label for="title">Edit title:</label>
+    <input type="text" id="title" name="title" value="{{ calendar_data['name'] }}" required><br>
+    <label for="additional_info">Edit additional information:</label>
+    <input type="text" id="additional_info" name="additional_info" value="{{ calendar_data['additional_info'] }}"><br>
+    <input type="Submit" value="Save changes">
+</form>
+
+<div class = "flash">{% for message in get_flashed_messages() %}
+    <p>{{ message }}</p>
+    {% endfor %} 
+</div>
+<div><a href="/{{ calendar_id }}/appointments">Back to calendar</a></div>
+
+{% endblock %}

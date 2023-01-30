@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Participate in a meeting
+{% endblock %}
+
+{% block main %}
+
+<h1>Welcome!</h1>
+
+<div>
+    <p>{{ user_data["firstname"] }} {{ user_data["lastname"] }} (<a href="mailto:{{ user_data['email'] }}">{{ user_data["email"] }}</a>) has invited you to book an appointment.</p>
+    <p>Subject: {{ calendar_data["name"] }}</p>
+    <p>Additional info: {{ calendar_data["additional_info"]}}</p>
+
+</div>
+
+<h2>Your information</h2>
+<form method="post" action="/attend/{{ calendar_id }}">
+    <label for="name">Name: </label>
+    <input type="text" name="name" required>
+    <label for="e-mail">E-mail: </label>
+    <input type="email" name="email" required>
+
+<h2>Select appointment</h2>
+<div class = "flash">
+    {% for message in get_flashed_messages() %} <p>{{ message }}</p>{% endfor %} 
+</div>
+{% if appointments_dict|length == 0 %}
+    <p>No available appointments left! You can contact {{ user_data["firstname"] }} at <a href="mailto:{{ user_data['email'] }}">{{ user_data["email"] }}</a>. Thank you!</p>
+{% else %}
+    <table>
+        {% for row in appointments_dict %}
+        <tr>
+            <td><input type="radio" name="appointment" value="{{ row['id'] }}"></td>
+            <td>{{ row["string"] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+<input type="Submit" value="Submit">
+</form>
+{% endif %}
+
+{% endblock %}
